@@ -1,0 +1,16 @@
+# --- Python Cleanup (Auto-generated junk) ---
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints
+
+# --- Virtual Environment (Heavy libraries) ---
+.venv
+env/
+venv/
+
+# --- Project Data (Too large for GitHub) ---
+# Ignore all CSV files
+*.csv
+
+# --- File related to brainstorming and scratch work ---
+projectIdea.pdf
