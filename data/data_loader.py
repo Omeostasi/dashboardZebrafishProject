@@ -8,16 +8,16 @@ df_original = pd.read_csv('data/zfish.csv')
 
 # Convert 'Type' to string for categorical treatment
 types = [
-    "Epiblast",
-    "Neural Anterior",
-    "Neural Mid",
-    "Neural Posterior",
-    "Neural Crest",
+    "Pluripotent",
     "Epidermal",
     "Endoderm",
-    "Mesoderm",
+    "Forebrain",
+    "Hindbrain",
+    "Neural Crest",
+    "Midbrain",
     "Germline",
-    "Apoptotic-like"
+    "Mesoderm",
+    "Other/NaN"
 ]
 
 df = df_original.copy()
