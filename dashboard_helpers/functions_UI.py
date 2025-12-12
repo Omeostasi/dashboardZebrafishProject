@@ -3,8 +3,7 @@
 ###
 
 # Importing necessary libraries
-from dash import dcc
-from dash import html
+from dash import dcc, html
 import plotly.graph_objects as go
 from dash import callback, Input, Output
 
@@ -36,8 +35,8 @@ def hpf_dropdown_tsne(hpf_options):
 #
 selection_genes_methods = [
     "Random Forest",
-    "ANOVA",
-    "Interesection"]
+    "Anova",
+    "Intersection"]
 def gene_selection_method_dropdown():    
     return dcc.Dropdown(
         id="gene-selection-method-dropdown",
@@ -55,16 +54,32 @@ def gene_selection_method_dropdown():
 #
 # UI: SLIDER FOR DBSCAN 
 #
-def cluster_parameter_slider():
+def dbscan_parameter_slider():
     return dcc.Slider(id="dbscan-parameter-slider",
-                      min=0.1,
-                      max=1.0,
+                      min=0.2,
+                      max=2.0,
                       step=0.1,
-                      value=0.5,
-                      marks={i/10: str(i/10) for i in range(1, 11, 5)},
-                      tooltip={"placement": "bottom", "always_visible": True}
+                      value=0.9,
+                      marks={i/10: f"{i/10:.1f}" for i in range(2, 21, 5)} | {2.0: '2.0'},
+                      tooltip={"placement": "bottom", "always_visible": True},
+                      persistence_type='session'
                      )
 
+
+#
+# UI: INPUT FOR eps IN DBSCAN
+#
+
+def dbscan_eps_input():
+    return dcc.Input(
+        id="dbscan-eps-input",
+        type="number",
+        placeholder='Enter a value from 0.1 to 5.0',
+        min=0.1,
+        max=5.0,
+        value=0.5,
+        style={'width': '100px'}
+    )
 
 #
 #   UI: DROPDOWN FOR hpf IN DBSCAN PLOTTING

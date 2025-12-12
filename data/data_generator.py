@@ -1,6 +1,7 @@
 # imports
 import pandas as pd
 import numpy as np
+from src.dbscan import generate_dbscan_dataframe
 
 
 # Load data
@@ -83,8 +84,13 @@ print("K-Means clustering: done")
 
 
 ### Creating dataset for T-SNE final visualization
-df_tsne = pd.read_csv('data/pca.csv')
-df_tsne = pd.concat([df_tsne, df], axis=1)
+print("Creating T-SNE final dataset... is going to take some time")
+try:
+    subprocess.run([sys.executable, "src/tSNE.py"], check=True)
+except subprocess.CalledProcessError as e:
+    print(f"An error occurred while running tSNE.py: {e.returncode}")
+
+df_tsne = pd.read_csv('data/df_tsne.csv')
 df_tsne["K-Means"] = df_kmeans["K-Means"]
 df_tsne.to_csv('data/df_tsne.csv', index=False)
 print("T-SNE final dataset creation: done")
@@ -94,3 +100,9 @@ try:
     subprocess.run([sys.executable, "src/selectedGenes.py"], check=True)
 except subprocess.CalledProcessError as e:
     print(f"An error occurred while running selectedGenes.py: {e.returncode}")
+
+### Created first dataset for DBSCAN
+print("Creating initial DBSCAN dataset...")
+df_dbscan = generate_dbscan_dataframe(eps_value=0.5, df_kmeans=df_kmeans)
+df_dbscan.to_csv('data/df_dbscan.csv', index=False)
+print("Initial DBSCAN dataset creation: done")
