@@ -29,7 +29,7 @@ for package in packages:
 
 
 try:
-    subprocess.run([sys.executable, "data/data_generator.py"], check=True)
+    subprocess.run([sys.executable, "-m", "data.data_generator"], check=True)
 except subprocess.CalledProcessError as e:
     print(f"An error occurred while running data_generator.py: {e.returncode}")
 
